@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_mate/views/widget_tree.dart';
+import 'package:study_mate/widget_tree.dart';
 
 void main() {
   runApp(const Home());
