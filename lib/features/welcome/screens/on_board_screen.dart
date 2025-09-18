@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:study_mate/core/common_widgets/app_button.dart';
+import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/screens/institute_registration.dart';
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({super.key});
@@ -22,6 +25,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
 
               children: [
                 OnBoard(
+                  controller: _controller,
                   image: "assets/images/welcome_page/illustration_1.png",
                   title: "Welcome to StudyMate",
                   description:
@@ -29,6 +33,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   pageCount: 1,
                 ),
                 OnBoard(
+                  controller: _controller,
                   image: "assets/images/welcome_page/illustration_2.png",
                   title: "Learn. Share. Grow.",
                   description:
@@ -36,6 +41,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   pageCount: 2,
                 ),
                 OnBoard(
+                  controller: _controller,
                   image: "assets/images/welcome_page/illustration_3.png",
                   title: "Join Your Institute",
                   description:
@@ -69,6 +75,7 @@ class OnBoard extends StatelessWidget {
   final String title;
   final String description;
   final int pageCount;
+  final PageController controller;
 
   const OnBoard({
     super.key,
@@ -76,6 +83,7 @@ class OnBoard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.pageCount,
+    required this.controller,
   });
 
   @override
@@ -88,7 +96,14 @@ class OnBoard extends StatelessWidget {
               padding: EdgeInsets.only(
                 right: MediaQuery.of(context).size.width * 0.10,
               ),
-              child: Text("Skip", style: TextStyle(color: Color(0xFF858597))),
+              child: GestureDetector(
+                onTap: () => controller.animateToPage(
+                  2,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                ),
+                child: Text("Skip", style: TextStyle(color: AppColors.txtGrey)),
+              ),
             ),
         ],
       ),
@@ -108,10 +123,38 @@ class OnBoard extends StatelessWidget {
             Text(
               description,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: Color(0xFF858597)),
+              style: TextStyle(fontSize: 14, color: AppColors.txtGrey),
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 30),
+
+            if (pageCount == 3) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppButton(
+                    text: "Institute Register",
+                    onPressed: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => InstituteProgressScreen(),
+                      //   ),
+                      // );
+                    },
+                    isPrimary: true,
+                  ),
+
+                  SizedBox(width: 10),
+
+                  AppButton(
+                    text: "Join Institute",
+                    onPressed: () {},
+                    isPrimary: false,
+                  ),
+                ],
+              ),
+            ],
           ],
         ),
       ),
