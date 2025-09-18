@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:study_mate/widget_tree.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    //transparent mobile status bar
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // fully transparent
+      statusBarIconBrightness:
+          Brightness.dark, // dark icons for light background
+    ),
+  );
+
+  // Ensure that Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const Home());
 }
 
@@ -14,7 +26,7 @@ class Home extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color(0x00cdecfe),
+          seedColor: const Color.fromARGB(255, 58, 147, 221),
           brightness: Brightness.light,
         ),
       ),
