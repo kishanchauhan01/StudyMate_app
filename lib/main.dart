@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:study_mate/core/shared/screen/edit_profile.dart';
 import 'package:study_mate/widget_tree.dart';
 
 void main() {
@@ -30,7 +31,8 @@ class Home extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      home: WidgetTree(),
+      // home: WidgetTree(),
+      home:EditProfilePage()
     );
   }
 }
