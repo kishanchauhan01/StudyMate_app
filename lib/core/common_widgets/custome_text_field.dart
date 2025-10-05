@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
 
-class CustomeTextField extends StatelessWidget {
+class CustomeTextField extends StatefulWidget {
   final String lable;
   final String hintText;
   final TextEditingController controller;
@@ -18,6 +18,19 @@ class CustomeTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomeTextField> createState() => _CustomeTextFieldState();
+}
+
+class _CustomeTextFieldState extends State<CustomeTextField> {
+  late bool _isObsecure;
+
+  @override
+  void initState() {
+    super.initState();
+    _isObsecure = widget.obsecureText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +38,7 @@ class CustomeTextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
           child: Text(
-            lable,
+            widget.lable,
             style: TextStyle(
               color: AppColors.txtGrey,
               fontSize: 16,
@@ -35,11 +48,12 @@ class CustomeTextField extends StatelessWidget {
         ),
 
         TextField(
-          controller: controller,
-          obscureText: obsecureText,
-          keyboardType: keyboardType,
+          controller: widget.controller,
+          obscureText: _isObsecure,
+          keyboardType: widget.keyboardType,
           decoration: InputDecoration(
-            hintText: hintText,
+            hintText: widget.hintText,
+            hintStyle: TextStyle(color: AppColors.txtBlack, fontWeight: FontWeight.w500),
             contentPadding: const EdgeInsets.symmetric(
               vertical: 14.0,
               horizontal: 20.0,
@@ -59,6 +73,18 @@ class CustomeTextField extends StatelessWidget {
                 width: 2.0,
               ),
             ),
+
+            suffixIcon: widget.obsecureText
+                ? IconButton(
+                    onPressed: () {
+                      _isObsecure = !_isObsecure;
+                      setState(() {});
+                    },
+                    icon: Icon(
+                      _isObsecure ? Icons.visibility_off : Icons.visibility,
+                    ),
+                  )
+                : null,
           ),
         ),
         SizedBox(height: 10),

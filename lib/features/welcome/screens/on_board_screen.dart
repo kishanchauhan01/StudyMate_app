@@ -3,6 +3,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
 import 'package:study_mate/features/auth/screens/institute_registration_screen.dart';
+import 'package:study_mate/features/auth/screens/login_screen.dart';
 
 class OnBoardScreen extends StatefulWidget {
   const OnBoardScreen({super.key});
@@ -151,7 +152,12 @@ class OnBoard extends StatelessWidget {
                   AppButton(
                     width: 160,
                     text: "Join Institute",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    },
                     isPrimary: false,
                   ),
                 ],

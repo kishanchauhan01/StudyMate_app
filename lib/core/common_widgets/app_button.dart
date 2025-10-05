@@ -3,7 +3,7 @@ import 'package:study_mate/core/theme/app_colors.dart'; // Make sure this path i
 
 class AppButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback ?onPressed;
   final bool isPrimary;
   final double? width; // <-- 1. ADD THE WIDTH PROPERTY
 
