@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
+import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/screens/otp_verify_screen.dart';
 
 class InstituteAdminScreen extends StatefulWidget {
   const InstituteAdminScreen({super.key});
@@ -11,7 +13,11 @@ class InstituteAdminScreen extends StatefulWidget {
 }
 
 class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
-  TextEditingController instituteNameController = TextEditingController();
+  TextEditingController adminNameController = TextEditingController();
+  TextEditingController adminEmailController = TextEditingController();
+  TextEditingController adminPasswordController = TextEditingController();
+  TextEditingController adminConfirmPassowrdController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +34,26 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
                   lable: "Name",
                   hintText: "your name",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: adminNameController,
                 ),
 
                 CustomeTextField(
                   lable: "Email",
                   hintText: "your email",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: adminEmailController,
                 ),
                 CustomeTextField(
                   lable: "Password",
                   hintText: "",
                   obsecureText: true,
-                  controller: instituteNameController,
+                  controller: adminPasswordController,
                 ),
                 CustomeTextField(
                   lable: "Confirm Password",
                   hintText: "",
                   obsecureText: true,
-                  controller: instituteNameController,
+                  controller: adminConfirmPassowrdController,
                 ),
 
                 SizedBox(height: 20),
@@ -55,7 +61,9 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
                 AppButton(
                   width: 300,
                   text: "Submit",
-                  onPressed: () {},
+                  onPressed: () {
+                    _showDialog(context);
+                  },
                   isPrimary: true,
                 ),
               ],
@@ -63,6 +71,40 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<dynamic> _showDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: Icon(Icons.info),
+          content: Text(
+            "By Clicking Done we will send OTP to your institute email",
+            style: TextStyle(color: AppColors.txtGrey, fontSize: 16),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OtpVerifyScreen(),
+                      ),
+                    );
+                  },
+                  text: "Done",
+                  isPrimary: true,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

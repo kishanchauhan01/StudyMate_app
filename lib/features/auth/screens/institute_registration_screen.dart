@@ -14,6 +14,10 @@ class InstituteRegistrationScreen extends StatefulWidget {
 class _InstituteRegistrationScreenState
     extends State<InstituteRegistrationScreen> {
   TextEditingController instituteNameController = TextEditingController();
+  TextEditingController instituteEmailController = TextEditingController();
+  TextEditingController instituteTypeController = TextEditingController();
+  TextEditingController instituteContactController = TextEditingController();
+  TextEditingController instituteAddressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,25 +41,25 @@ class _InstituteRegistrationScreenState
                   lable: "Institute Email",
                   hintText: "your institute email",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: instituteEmailController,
                 ),
                 CustomeTextField(
                   lable: "Institute Type",
                   hintText: "School/Collage",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: instituteTypeController,
                 ),
                 CustomeTextField(
                   lable: "Institute Contact",
                   hintText: "+91 58461 5489",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: instituteContactController,
                 ),
                 CustomeTextField(
                   lable: "Institute Address",
                   hintText: "Rajkot, Gujrat",
                   obsecureText: false,
-                  controller: instituteNameController,
+                  controller: instituteAddressController,
                 ),
 
                 Row(

@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:study_mate/widget_tree.dart';
 
 void main() {
+  // Ensure that Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(
     //transparent mobile status bar
     const SystemUiOverlayStyle(
@@ -12,9 +15,12 @@ void main() {
     ),
   );
 
-  // Ensure that Flutter bindings are initialized
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const Home());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const Home());
+  });
 }
 
 class Home extends StatelessWidget {
