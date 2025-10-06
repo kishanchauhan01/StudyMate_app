@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/material_card.dart';
-import 'package:study_mate/core/models/upload_item.dart';
+import 'package:study_mate/core/models/material_item.dart'; // Use the new model
 
-class MyUploadsPage extends StatefulWidget {
-  const MyUploadsPage({super.key});
+class MyUploadsScreen extends StatefulWidget {
+  const MyUploadsScreen({super.key});
 
   @override
-  _MyUploadsPageState createState() => _MyUploadsPageState();
+  MyUploadsScreenState createState() => MyUploadsScreenState();
 }
 
-class _MyUploadsPageState extends State<MyUploadsPage> {
-  // Sample data
-  final List<UploadItem> _uploadItems = [
-    UploadItem(
+class MyUploadsScreenState extends State<MyUploadsScreen> {
+  //! material model use karvo
+  final List<MaterialItem> _uploadItems = [
+    MaterialItem(
       title: 'All about widget',
-      sub: 'Flutter',
+      subtitle: 'Flutter', // Changed to subtitle
       type: 'PDF',
-      uploadDate: '5th September, 2025',
-      
+
+      displayDate: '5th September, 2025',
+      canDelete: true,
     ),
-    UploadItem(
+    MaterialItem(
       title: 'C# winform',
-      sub: '.NET',
+      subtitle: '.NET',
       type: 'PDF',
-      uploadDate: '18th December, 2025',
+      displayDate: '18th December, 2025',
+      canDelete: true,
     ),
   ];
 
   void _deleteItem(int index) {
     setState(() {
       final removedItem = _uploadItems.removeAt(index);
-      // Show a snackbar to confirm deletion
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${removedItem.title} deleted.'),
@@ -40,7 +41,6 @@ class _MyUploadsPageState extends State<MyUploadsPage> {
     });
   }
 
-  // New function to show the delete confirmation dialog
   void _showDeleteConfirmationDialog(int index) {
     showDialog(
       context: context,
@@ -64,9 +64,7 @@ class _MyUploadsPageState extends State<MyUploadsPage> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(
-                      0xFFFE7474,
-                    ), // Red button color from image
+                    backgroundColor: const Color(0xFFFE7474),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -80,9 +78,7 @@ class _MyUploadsPageState extends State<MyUploadsPage> {
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   onPressed: () {
-                    // Close the dialog first
                     Navigator.of(context).pop();
-                    // Then call the original delete function
                     _deleteItem(index);
                   },
                 ),
@@ -114,13 +110,16 @@ class _MyUploadsPageState extends State<MyUploadsPage> {
           final item = _uploadItems[index];
           return MaterialCard(
             item: item,
-            onDelete: () {
-              // This now shows the confirmation dialog instead of deleting directly
+
+            // giving color to card bro
+            backgroundColor: const Color(0xFFF0F2FF),
+            // ignore: deprecated_member_use
+            borderColor: Colors.indigo.withOpacity(0.2),
+
+            onDeleteTap: () {
               _showDeleteConfirmationDialog(index);
             },
             onCardTap: () {
-              // This is the action for tapping the card.
-              // For now, it just shows a simple message.
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Tapped on ${item.title}'),

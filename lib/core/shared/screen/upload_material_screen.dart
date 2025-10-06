@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-// To enable file picking, you need to use a package.
-// Add this to your pubspec.yaml:
-// dependencies:
-//   file_picker: ^6.2.1
-// Then import it:
+import 'package:flutter/material.dart'; 
 import 'package:file_picker/file_picker.dart';
 import 'dart:math';
 
@@ -20,14 +15,14 @@ class SelectedFile {
   });
 }
 
-class UploadMaterialPage extends StatefulWidget {
-  const UploadMaterialPage({super.key});
+class UploadMaterialScreen extends StatefulWidget {
+  const UploadMaterialScreen({super.key});
 
   @override
-  _UploadMaterialPageState createState() => _UploadMaterialPageState();
+  UploadMaterialScreenState createState() => UploadMaterialScreenState();
 }
 
-class _UploadMaterialPageState extends State<UploadMaterialPage> {
+class UploadMaterialScreenState extends State<UploadMaterialScreen> {
   // State variables to manage the UI
   SelectedFile? _selectedFile;
   final _titleController = TextEditingController();

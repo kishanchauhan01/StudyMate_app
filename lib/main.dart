@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:study_mate/core/shared/screen/home_screen.dart';
-import 'package:study_mate/core/shared/screen/profile_screen.dart';
-import 'package:study_mate/widget_tree.dart';
+import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
+import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
+import 'package:study_mate/core/shared/screen/saved_material_screen.dart';
+import 'package:study_mate/core/shared/screen/upload_material_screen.dart';
 
 void main() {
   // Ensure that Flutter bindings are initialized
@@ -25,7 +26,7 @@ void main() {
   });
 }
 
-class Home extends StatelessWidget {
+class Home extends StatelessWidget { 
   const Home({super.key});
 
   @override
@@ -39,13 +40,11 @@ class Home extends StatelessWidget {
         ),
       ),
       // home: WidgetTree(),
-      home: HomeScreen(),
-      // home: EditProfilePage(),
-      // home: ProfileScreen(),
-      // home: MyUploadsPage(),
+      // home: EditProfileScreen(),
+      // home: MyUploadsScreen(),
       // home: UploadMaterialPage(),
       // home: AddSubjectPage(),
-      // home: SavedMaterialsPage(),
+      home: SavedMaterialsScreen(),
     );
   }
 }

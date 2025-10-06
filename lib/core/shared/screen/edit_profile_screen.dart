@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 
-class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
-  // Controllers to manage the text in the input fields
+class _EditProfileScreenState extends State<EditProfileScreen> {
   final _nameController = TextEditingController(text: 'Kishan Chauhan');
   final _emailController = TextEditingController(text: 'xyz@rku.ac.in');
 
-  // Dummy data lists for the dropdown menus
   final List<String> _semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
   final List<String> _branches = ['CE', 'IT', 'ME', 'EE', 'CIVIL', 'EC'];
   final List<String> _departments = ['B.Tech', 'M.Tech', 'Diploma', 'MBA'];
 
-  // Variables to hold the currently selected values from the dropdowns
   String? _selectedSemester = '5';
   String? _selectedBranch = 'CE';
   String? _selectedDepartment = 'B.Tech';
 
   @override
   void dispose() {
-    // It's a good practice to dispose of controllers when the widget is removed
     _nameController.dispose();
     _emailController.dispose();
     super.dispose();
@@ -33,7 +29,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // A very light grey background color to match the design
       backgroundColor: const Color(0xFFF9F9F9),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -53,17 +48,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
       ),
       body: SingleChildScrollView(
-        // Padding for the entire page content
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Profile picture avatar
             Center(
               child: CircleAvatar(
                 radius: 50,
                 backgroundColor: Colors.pink[100],
-                // Placeholder image that looks similar to the one in the UI
                 backgroundImage: const NetworkImage(
                   'https://i.pravatar.cc/150?img=18',
                 ),
@@ -71,19 +63,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 32),
 
-            // Name field section
-            _buildTextField(label: 'Your name', controller: _nameController),
+            _buildTextFieldWidget(
+              label: 'Your name',
+              controller: _nameController,
+            ),
             const SizedBox(height: 24),
 
-            // Email field section
-            _buildTextField(label: 'Your email', controller: _emailController),
+            _buildTextFieldWidget(
+              label: 'Your email',
+              controller: _emailController,
+            ),
             const SizedBox(height: 24),
 
-            // Row for Sem and Branch dropdowns
             Row(
               children: [
                 Expanded(
-                  child: _buildDropdownField(
+                  child: _buildDropdownFieldWidget(
                     label: 'Sem',
                     value: _selectedSemester,
                     items: _semesters,
@@ -96,7 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: _buildDropdownField(
+                  child: _buildDropdownFieldWidget(
                     label: 'Branch',
                     value: _selectedBranch,
                     items: _branches,
@@ -111,8 +106,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 24),
 
-            // Department dropdown section
-            _buildDropdownField(
+            _buildDropdownFieldWidget(
               label: 'Department',
               value: _selectedDepartment,
               items: _departments,
@@ -124,12 +118,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             const SizedBox(height: 40),
 
-            // Update Profile Button
             SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // Logic for updating profile can be added here
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Profile Updated Successfully!'),
@@ -137,7 +129,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  // Exact button color from the screenshot
                   backgroundColor: const Color(0xFF836FFF),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -160,8 +151,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  /// Helper widget to build a labeled text input field.
-  Widget _buildTextField({
+  Widget _buildTextFieldWidget({
     required String label,
     required TextEditingController controller,
   }) {
@@ -207,8 +197,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  /// Helper widget to build a labeled dropdown menu.
-  Widget _buildDropdownField({
+  Widget _buildDropdownFieldWidget({
     required String label,
     required String? value,
     required List<String> items,
@@ -228,7 +217,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           initialValue: value,
-          // *** The change is here: added a black icon ***
           icon: const Icon(
             Icons.keyboard_arrow_down_rounded,
             color: Colors.black87,
