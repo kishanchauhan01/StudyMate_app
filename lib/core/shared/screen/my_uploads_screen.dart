@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/material_card.dart';
-import 'package:study_mate/core/models/upload_item.dart';
+import 'package:study_mate/core/models/material_item.dart'; // Use the new model
 
 class MyUploadsScreen extends StatefulWidget {
   const MyUploadsScreen({super.key});
@@ -10,26 +10,28 @@ class MyUploadsScreen extends StatefulWidget {
 }
 
 class _MyUploadsScreenState extends State<MyUploadsScreen> {
-  // Sample data threw model
-  final List<UploadItem> _uploadItems = [
-    UploadItem(
+  // Use the new MaterialItem model
+  final List<MaterialItem> _uploadItems = [
+    MaterialItem(
       title: 'All about widget',
-      sub: 'Flutter',
+      subtitle: 'Flutter', // Changed to subtitle
       type: 'PDF',
-      uploadDate: '5th September, 2025',
+      displayDate: '5th September, 2025', // Changed to displayDate
+      canDelete: true, // Set the flag to show delete icon
     ),
-    UploadItem(
+    MaterialItem(
       title: 'C# winform',
-      sub: '.NET',
+      subtitle: '.NET',
       type: 'PDF',
-      uploadDate: '18th December, 2025',
+      displayDate: '18th December, 2025',
+      canDelete: true,
     ),
   ];
 
+  // Rest of the code (delete logic) remains the same
   void _deleteItem(int index) {
     setState(() {
       final removedItem = _uploadItems.removeAt(index);
-      // Show a snackbar to confirm deletion
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${removedItem.title} deleted.'),
@@ -111,15 +113,16 @@ class _MyUploadsScreenState extends State<MyUploadsScreen> {
         itemCount: _uploadItems.length,
         itemBuilder: (context, index) {
           final item = _uploadItems[index];
+          // Use the new, versatile MaterialCard
           return MaterialCard(
             item: item,
-            onDelete: () {
-              // This now shows the confirmation dialog instead of deleting directly
+            // The card is white by default, so no need to set color
+            backgroundColor: const Color(0xFFF0F2FF),
+            borderColor: Colors.indigo.withOpacity(0.2),
+            onDeleteTap: () {
               _showDeleteConfirmationDialog(index);
             },
             onCardTap: () {
-              // This is the action for tapping the card.
-              // For now, it just shows a simple message.
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Tapped on ${item.title}'),

@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:study_mate/core/models/upload_item.dart';
+import 'package:study_mate/core/models/material_item.dart';
 
 class MaterialCard extends StatelessWidget {
-  final UploadItem item;
-  final VoidCallback onDelete;
-  final VoidCallback onCardTap;
+  final MaterialItem item;
+  final Color backgroundColor;
+  final Color borderColor;
+
+  // --- Optional Callbacks for Actions ---
+  final VoidCallback? onCardTap;
+  final VoidCallback? onDeleteTap;
+  final VoidCallback? onBookmarkTap;
+  final VoidCallback? onDownloadTap;
+  final VoidCallback? onOpenTap;
 
   const MaterialCard({
     super.key,
     required this.item,
-    required this.onDelete,
-    required this.onCardTap,
+    this.backgroundColor = Colors.white, // Default to white
+    this.borderColor = const Color.fromARGB(126, 0, 0, 0),
+    this.onCardTap,
+    this.onDeleteTap,
+    this.onBookmarkTap,
+    this.onDownloadTap,
+    this.onOpenTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    // To match the font from the screenshot, you can use the google_fonts package.
-    // For example, add `google_fonts: ^6.1.0` to your pubspec.yaml
-    // and then use `style: GoogleFonts.spaceMono(...)` for the TextStyles.
-    // For this example, we will use the default font.
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Material(
-        color: const Color.fromARGB(255, 255, 255, 255),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(20.0),
         child: InkWell(
           borderRadius: BorderRadius.circular(20.0),
@@ -31,87 +38,68 @@ class MaterialCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.transparent, // Color is now on the Material widget
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(20.0),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: const Color.fromARGB(255, 249, 249, 249),
-              //     spreadRadius: 0,
-              //     blurRadius: 20,
-              //     offset: const Offset(0, 10),
-              //   ),
-              // ],
-              border: Border.all(
-                color: const Color.fromARGB(126, 0, 0, 0),
-                width: 1,
-              ),
+              border: Border.all(color: borderColor, width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // --- Top Row: Date, Delete, and Bookmark Icons ---
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Title text expands to take available space
-                    Expanded(
-                      child: Text(
-                        'Title: ${item.title}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'monospace',
-                        ),
-                      ),
+                    Text(
+                      item.displayDate,
+                      style: const TextStyle(fontSize: 12, color: Colors.black45),
                     ),
-                    // Share button, hidden as per your request
-                    const Visibility(
-                      visible: false,
-                      maintainSize: true,
-                      maintainAnimation: true,
-                      maintainState: true,
-                      child: Icon(Icons.open_in_new, color: Colors.black87),
-                    ),
-                    const SizedBox(width: 8),
-                    // Clickable Delete Button
-                    InkWell(
-                      onTap: onDelete,
-                      borderRadius: BorderRadius.circular(24),
-                      child: const Icon(Icons.delete, color: Colors.black87),
+                    Row(
+                      children: [
+                        // Show Bookmark Icon if enabled
+                        if (item.canBookmark)
+                          InkWell(
+                            onTap: onBookmarkTap,
+                            child: Icon(
+                              item.isBookmarked
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        // Show Delete Icon if enabled
+                        if (item.canDelete) ...[
+                          const SizedBox(width: 8),
+                          InkWell(
+                            onTap: onDeleteTap,
+                            child: const Icon(Icons.delete, color: Colors.black87),
+                          ),
+                        ],
+                      ],
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
+
+                // --- Title ---
+                Text(
+                  item.title,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+
+                // --- Subtitle and Type ---
                 Row(
                   children: [
                     Text(
-                      'Sub: ${item.sub}',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black54,
-                        fontFamily: 'monospace',
-                      ),
+                      item.subtitle,
+                      style: const TextStyle(fontSize: 14, color: Colors.black54),
                     ),
-                    const SizedBox(width: 16),
-                    Text(
-                      'Type: ',
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black54,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    // PDF Tag
+                    const SizedBox(width: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: Colors.blue.shade300,
-                          width: 1,
-                        ),
+                        border: Border.all(color: Colors.blue.shade300, width: 1),
                       ),
                       child: Text(
                         item.type,
@@ -119,20 +107,37 @@ class MaterialCard extends StatelessWidget {
                           fontSize: 12,
                           color: Colors.blue.shade800,
                           fontWeight: FontWeight.bold,
-                          fontFamily: 'monospace',
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  'Uploaded on: ${item.uploadDate}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black45,
-                    fontFamily: 'monospace',
-                  ),
+                const SizedBox(height: 16),
+
+                // --- Bottom Row: Uploader Info and Actions ---
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Show Uploader Info if enabled
+                    if (item.showUploaderInfo)
+                      _buildUploaderInfo(),
+                    
+                    // Spacer to push actions to the right if uploader info is hidden
+                    if (!item.showUploaderInfo)
+                      const Spacer(),
+
+                    // Show Download/Open Actions if enabled
+                    Row(
+                      children: [
+                        if (item.canDownload)
+                          _buildActionButton('Download', onDownloadTap),
+                        if (item.canDownload && item.canOpen)
+                          const SizedBox(width: 16),
+                        if (item.canOpen)
+                          _buildActionButton('Open', onOpenTap),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -141,5 +146,37 @@ class MaterialCard extends StatelessWidget {
       ),
     );
   }
-}
 
+  Widget _buildUploaderInfo() {
+    return Row(
+      children: [
+        if (item.uploaderIcon != null) ...[
+          CircleAvatar(
+            radius: 12,
+            backgroundColor: Colors.grey.shade200,
+            child: Icon(item.uploaderIcon, size: 14, color: Colors.black54),
+          ),
+          const SizedBox(width: 8),
+        ],
+        Text(
+          'Uploaded by ${item.uploadedBy ?? 'Unknown'}',
+          style: const TextStyle(fontSize: 12, color: Colors.black54),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButton(String text, VoidCallback? onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 14,
+          color: Colors.black87,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
