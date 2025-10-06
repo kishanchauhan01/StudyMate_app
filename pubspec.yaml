@@ -38,6 +38,7 @@ dependencies:
   easy_stepper: ^0.8.5+1
   font_awesome_flutter: ^10.10.0
   pin_code_fields: ^8.0.1
+  file_picker: ^10.3.3
 
 dev_dependencies:
   flutter_test:
