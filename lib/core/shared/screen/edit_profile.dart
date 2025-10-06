@@ -65,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 backgroundColor: Colors.pink[100],
                 // Placeholder image that looks similar to the one in the UI
                 backgroundImage: const NetworkImage(
-                  'https://i.pravatar.cc/150?img=25',
+                  'https://i.pravatar.cc/150?img=18',
                 ),
               ),
             ),
