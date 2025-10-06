@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'core/managers/profile_manager.dart';
+import 'core/managers/upload_manager.dart';
+
 import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
 import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
 import 'package:study_mate/core/shared/screen/saved_material_screen.dart';
@@ -22,11 +26,20 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-    runApp(const Home());
+    runApp(
+      // Use MultiProvider to provide all your managers to the app
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ProfileManager()),
+          ChangeNotifierProvider(create: (_) => UploadManager()),
+        ], 
+        child: const Home(),
+      ),
+    );
   });
 }
 
-class Home extends StatelessWidget { 
+class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
@@ -42,6 +55,7 @@ class Home extends StatelessWidget {
       // home: WidgetTree(),
       // home: EditProfileScreen(),
       // home: MyUploadsScreen(),
+      home: UploadMaterialScreen(),
       // home: AddSubjectPage(),
       // home: SavedMaterialsScreen(),
     );
