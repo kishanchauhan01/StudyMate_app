@@ -227,7 +227,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           // *** The change is here: added a black icon ***
           icon: const Icon(
             Icons.keyboard_arrow_down_rounded,

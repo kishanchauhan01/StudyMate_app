@@ -21,7 +21,7 @@ class SelectedFile {
 }
 
 class UploadMaterialPage extends StatefulWidget {
-  const UploadMaterialPage({Key? key}) : super(key: key);
+  const UploadMaterialPage({super.key});
 
   @override
   _UploadMaterialPageState createState() => _UploadMaterialPageState();
@@ -297,7 +297,7 @@ class _UploadMaterialPageState extends State<UploadMaterialPage> {
     required ValueChanged<String?> onChanged,
   }) {
     return DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

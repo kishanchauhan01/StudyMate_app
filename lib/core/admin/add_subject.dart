@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddSubjectPage extends StatefulWidget {
-  const AddSubjectPage({Key? key}) : super(key: key);
+  const AddSubjectPage({super.key});
 
   @override
   _AddSubjectPageState createState() => _AddSubjectPageState();

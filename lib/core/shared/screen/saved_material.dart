@@ -28,13 +28,13 @@ class SavedMaterialCard extends StatelessWidget {
   final VoidCallback onOpenTap;
 
   const SavedMaterialCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.onCardTap,
     required this.onBookmarkTap,
     required this.onDownloadTap,
     required this.onOpenTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +188,7 @@ class SavedMaterialCard extends StatelessWidget {
 
 // This is a sample screen to display the component.
 class SavedMaterialsPage extends StatefulWidget {
-  const SavedMaterialsPage({Key? key}) : super(key: key);
+  const SavedMaterialsPage({super.key});
 
   @override
   _SavedMaterialsPageState createState() => _SavedMaterialsPageState();
