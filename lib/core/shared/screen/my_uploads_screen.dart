@@ -6,10 +6,10 @@ class MyUploadsScreen extends StatefulWidget {
   const MyUploadsScreen({super.key});
 
   @override
-  _MyUploadsScreenState createState() => _MyUploadsScreenState();
+  MyUploadsScreenState createState() => MyUploadsScreenState();
 }
 
-class _MyUploadsScreenState extends State<MyUploadsScreen> {
+class MyUploadsScreenState extends State<MyUploadsScreen> {
   // Use the new MaterialItem model
   final List<MaterialItem> _uploadItems = [
     MaterialItem(

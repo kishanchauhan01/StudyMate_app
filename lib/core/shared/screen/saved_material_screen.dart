@@ -8,10 +8,10 @@ class SavedMaterialsPage extends StatefulWidget {
   const SavedMaterialsPage({super.key});
 
   @override
-  _SavedMaterialsPageState createState() => _SavedMaterialsPageState();
+  SavedMaterialsPageState createState() => SavedMaterialsPageState();
 }
 
-class _SavedMaterialsPageState extends State<SavedMaterialsPage> {
+class SavedMaterialsPageState extends State<SavedMaterialsPage> {
   // 3. The list now uses the new 'MaterialItem' model
   final List<MaterialItem> _savedItems = [
     MaterialItem(
@@ -88,6 +88,7 @@ class _SavedMaterialsPageState extends State<SavedMaterialsPage> {
             item: item,
             // You can customize its appearance for this screen
             backgroundColor: const Color(0xFFF0F2FF),
+            // ignore: deprecated_member_use
             borderColor: Colors.indigo.withOpacity(0.2),
             // Connect all the actions
             onCardTap: () => _showSnackbar('Tapped on ${item.title}'),
