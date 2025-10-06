@@ -76,7 +76,7 @@ class EditProfileScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  managerReader.updateProfile(); // Call manager's logic
+                  // managerReader.updateProfile(); 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Profile Updated Successfully!')),
                   );

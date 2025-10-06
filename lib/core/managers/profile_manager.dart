@@ -31,16 +31,15 @@ class ProfileManager extends ChangeNotifier {
     notifyListeners();
   }
   
-  void updateProfile() {
-    // In a real app, you would save this data to a database or API
-    print("--- UPDATING PROFILE ---");
-    print("Name: ${nameController.text}");
-    print("Email: ${emailController.text}");
-    print("Semester: $_selectedSemester");
-    print("Branch: $_selectedBranch");
-    print("Department: $_selectedDepartment");
-    print("--- PROFILE SAVED ---");
-  }
+  // void updateProfile() { 
+  //   print("--- UPDATING PROFILE ---");
+  //   print("Name: ${nameController.text}");
+  //   print("Email: ${emailController.text}");
+  //   print("Semester: $_selectedSemester");
+  //   print("Branch: $_selectedBranch");
+  //   print("Department: $_selectedDepartment");
+  //   print("--- PROFILE SAVED ---");
+  // }
 
   @override
   void dispose() {

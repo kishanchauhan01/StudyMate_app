@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'core/managers/profile_manager.dart'; 
-import 'core/managers/upload_manager.dart'; 
+import 'core/managers/profile_manager.dart';
+import 'core/managers/upload_manager.dart';
 
 import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
 import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
@@ -26,16 +26,16 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-   runApp(
-    // Use MultiProvider to provide all your managers to the app
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ProfileManager()),
-        ChangeNotifierProvider(create: (_) => UploadManager()),
-      ],
-      child: const Home(),
-    ),
-  );
+    runApp(
+      // Use MultiProvider to provide all your managers to the app
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ProfileManager()),
+          ChangeNotifierProvider(create: (_) => UploadManager()),
+        ], 
+        child: const Home(),
+      ),
+    );
   });
 }
 
