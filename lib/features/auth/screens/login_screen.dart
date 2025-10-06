@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           radius: 20.0,
                           borderRadius: BorderRadius.circular(12),
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SignupScreen(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/screens/login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -11,19 +12,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  // Controller to manage which page is visible in the PageView
-  final PageController _pageController = PageController();
-
-  // Variable to keep track of the selected segment
-  int _selectedSegment = 0;
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,118 +19,40 @@ class _SignupScreenState extends State<SignupScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            color: AppColors.bgGrey,
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.25,
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 30),
-
-                const Text(
-                  "Sign Up",
-                  style: TextStyle(color: AppColors.txtBlack, fontSize: 34.0),
-                ),
-
-                SizedBox(height: 20),
-
-                _buildSegmentControl(),
-              ],
+            height: MediaQuery.of(context).size.height * 0.24,
+            decoration: BoxDecoration(color: AppColors.bgGrey),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 20.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "SignUp",
+                    style: TextStyle(color: AppColors.txtBlack, fontSize: 36.0),
+                  ),
+                  SizedBox(height: 10.0),
+                  const Text(
+                    "👋 Welcome to StudyMate",
+                    style: TextStyle(color: AppColors.txtGrey, fontSize: 16.0),
+                  ),
+                ],
+              ),
             ),
           ),
-
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              // This callbacke is called when the user swipes
-              onPageChanged: (int page) {
-                setState(() {
-                  _selectedSegment = page;
-                });
-              },
-
-              children: [
-                // Page 1: Student form
-                _SignUpFormState(userType: "Student"),
-                // Page 2: Faculty Form
-                _SignUpFormState(userType: "Faculty"),
-              ],
-            ),
-          ),
+          Expanded(child: _SignUpFormState()),
         ],
-      ),
-    );
-  }
-
-  Widget _buildSegmentControl() {
-    return Container(
-      padding: EdgeInsets.all(4.0),
-
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildSegmentButton('Student', 0),
-            SizedBox(width: 6),
-            Text(
-              "|",
-              style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(width: 6),
-            _buildSegmentButton('Faculty', 1),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSegmentButton(String text, int index) {
-    bool isSelected = _selectedSegment == index;
-
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          // This is called when segment is tapped
-          setState(() {
-            _selectedSegment = index;
-          });
-
-          // Animate the pageView to the selected page
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-        },
-
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.grey[350] : Colors.transparent,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              color: isSelected ? AppColors.txtBlack : AppColors.txtGrey,
-              fontSize: 16.0,
-            ),
-          ),
-        ),
       ),
     );
   }
 }
 
 class _SignUpFormState extends StatefulWidget {
-  final String userType;
-  const _SignUpFormState({required this.userType});
+  const _SignUpFormState();
 
   @override
   State<_SignUpFormState> createState() => _SignUpFormStateState();
@@ -186,14 +96,6 @@ class _SignUpFormStateState extends State<_SignUpFormState> {
               obsecureText: false,
             ),
 
-            if (widget.userType == "Faculty")
-              CustomeTextField(
-                lable: "Your Faculty code",
-                hintText: "Efea-a-Bay",
-                controller: facultyCodeController,
-                obsecureText: false,
-              ),
-
             CustomeTextField(
               lable: "Password",
               hintText: "",
@@ -215,6 +117,32 @@ class _SignUpFormStateState extends State<_SignUpFormState> {
               onPressed: () {},
               isPrimary: true,
               width: MediaQuery.of(context).size.width * 0.90,
+            ),
+
+            SizedBox(height: 16.0),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  radius: 20.0,
+                  borderRadius: BorderRadius.circular(12),
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Already have an account",
+                      style: TextStyle(color: Colors.black87, fontSize: 16.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             SizedBox(height: 10),

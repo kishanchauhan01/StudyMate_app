@@ -22,7 +22,7 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Institute Super Admin"), centerTitle: true),
+      appBar: AppBar(title: Text("Institute Admin"), centerTitle: true),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(

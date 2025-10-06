@@ -14,7 +14,7 @@ class InstituteRegistrationScreen extends StatefulWidget {
 class _InstituteRegistrationScreenState
     extends State<InstituteRegistrationScreen> {
   TextEditingController instituteNameController = TextEditingController();
-  TextEditingController instituteEmailController = TextEditingController();
+  TextEditingController instituteDomainController = TextEditingController();
   TextEditingController instituteTypeController = TextEditingController();
   TextEditingController instituteContactController = TextEditingController();
   TextEditingController instituteAddressController = TextEditingController();
@@ -38,10 +38,10 @@ class _InstituteRegistrationScreenState
                 ),
 
                 CustomeTextField(
-                  lable: "Institute Email",
+                  lable: "Institute domain (if any)",
                   hintText: "your institute email",
                   obsecureText: false,
-                  controller: instituteEmailController,
+                  controller: instituteDomainController,
                 ),
                 CustomeTextField(
                   lable: "Institute Type",
