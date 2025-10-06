@@ -42,9 +42,8 @@ class Home extends StatelessWidget {
       // home: WidgetTree(),
       // home: EditProfileScreen(),
       // home: MyUploadsScreen(),
-      // home: UploadMaterialPage(),
       // home: AddSubjectPage(),
-      home: SavedMaterialsScreen(),
+      // home: SavedMaterialsScreen(),
     );
   }
 }

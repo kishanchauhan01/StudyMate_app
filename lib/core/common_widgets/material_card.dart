@@ -17,7 +17,7 @@ class MaterialCard extends StatelessWidget {
     super.key,
     required this.item,
     this.backgroundColor = Colors.white, // Default to white
-    this.borderColor = const Color.fromARGB(126, 0, 0, 0),
+    this.borderColor = const Color.fromARGB(166, 0, 0, 0),
     this.onCardTap,
     this.onDeleteTap,
     this.onBookmarkTap,
@@ -38,7 +38,7 @@ class MaterialCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
               border: Border.all(color: borderColor, width: 1),
             ),

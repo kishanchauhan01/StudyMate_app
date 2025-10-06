@@ -85,7 +85,7 @@ class SavedMaterialsScreenState extends State<SavedMaterialsScreen> {
 
             backgroundColor: const Color(0xFFF0F2FF),
             // ignore: deprecated_member_use
-            borderColor: Colors.indigo.withOpacity(0.2),
+            borderColor: const Color.fromARGB(166, 0, 0, 0),
             // Connect all the actions
             onCardTap: () => _showSnackbar('Tapped on ${item.title}'),
             onBookmarkTap: () => _showSnackbar('Toggled bookmark for ${item.title}'),
