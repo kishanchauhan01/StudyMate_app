@@ -15,14 +15,14 @@ class SelectedFile {
   });
 }
 
-class UploadMaterialPage extends StatefulWidget {
-  const UploadMaterialPage({super.key});
+class UploadMaterialScreen extends StatefulWidget {
+  const UploadMaterialScreen({super.key});
 
   @override
-  _UploadMaterialPageState createState() => _UploadMaterialPageState();
+  UploadMaterialScreenState createState() => UploadMaterialScreenState();
 }
 
-class _UploadMaterialPageState extends State<UploadMaterialPage> {
+class UploadMaterialScreenState extends State<UploadMaterialScreen> {
   // State variables to manage the UI
   SelectedFile? _selectedFile;
   final _titleController = TextEditingController();

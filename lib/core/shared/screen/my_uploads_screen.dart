@@ -9,15 +9,16 @@ class MyUploadsScreen extends StatefulWidget {
   MyUploadsScreenState createState() => MyUploadsScreenState();
 }
 
-class MyUploadsScreenState extends State<MyUploadsScreen> {
-  // Use the new MaterialItem model
+class MyUploadsScreenState extends State<MyUploadsScreen> { 
+
+  //! material model use karvo
   final List<MaterialItem> _uploadItems = [
     MaterialItem(
       title: 'All about widget',
       subtitle: 'Flutter', // Changed to subtitle
       type: 'PDF',
-      displayDate: '5th September, 2025', // Changed to displayDate
-      canDelete: true, // Set the flag to show delete icon
+      displayDate: '5th September, 2025', 
+      canDelete: true,
     ),
     MaterialItem(
       title: 'C# winform',
@@ -27,8 +28,7 @@ class MyUploadsScreenState extends State<MyUploadsScreen> {
       canDelete: true,
     ),
   ];
-
-  // Rest of the code (delete logic) remains the same
+ 
   void _deleteItem(int index) {
     setState(() {
       final removedItem = _uploadItems.removeAt(index);
@@ -41,7 +41,7 @@ class MyUploadsScreenState extends State<MyUploadsScreen> {
     });
   }
 
-  // New function to show the delete confirmation dialog
+   
   void _showDeleteConfirmationDialog(int index) {
     showDialog(
       context: context,
@@ -67,7 +67,7 @@ class MyUploadsScreenState extends State<MyUploadsScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(
                       0xFFFE7474,
-                    ), // Red button color from image
+                    ), 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -80,10 +80,8 @@ class MyUploadsScreenState extends State<MyUploadsScreen> {
                     'Delete',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
-                  onPressed: () {
-                    // Close the dialog first
-                    Navigator.of(context).pop();
-                    // Then call the original delete function
+                  onPressed: () { 
+                    Navigator.of(context).pop(); 
                     _deleteItem(index);
                   },
                 ),
@@ -112,13 +110,16 @@ class MyUploadsScreenState extends State<MyUploadsScreen> {
         padding: const EdgeInsets.only(top: 10),
         itemCount: _uploadItems.length,
         itemBuilder: (context, index) {
-          final item = _uploadItems[index];
-          // Use the new, versatile MaterialCard
+          final item = _uploadItems[index]; 
           return MaterialCard(
-            item: item,
-            // The card is white by default, so no need to set color
+            item: item, 
+
+            // giving color to card bro
             backgroundColor: const Color(0xFFF0F2FF),
+            // ignore: deprecated_member_use
             borderColor: Colors.indigo.withOpacity(0.2),
+
+          
             onDeleteTap: () {
               _showDeleteConfirmationDialog(index);
             },

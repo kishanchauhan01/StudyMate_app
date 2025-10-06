@@ -1,28 +1,24 @@
-import 'package:flutter/material.dart';
-// 1. Import the new common model
-import 'package:study_mate/core/models/material_item.dart'; 
-// 2. Import the new reusable card widget
+import 'package:flutter/material.dart'; 
+import 'package:study_mate/core/models/material_item.dart';  
 import 'package:study_mate/core/common_widgets/material_card.dart'; 
 
-class SavedMaterialsPage extends StatefulWidget {
-  const SavedMaterialsPage({super.key});
+class SavedMaterialsScreen extends StatefulWidget {
+  const SavedMaterialsScreen({super.key});
 
   @override
-  SavedMaterialsPageState createState() => SavedMaterialsPageState();
+  SavedMaterialsScreenState createState() => SavedMaterialsScreenState();
 }
 
-class SavedMaterialsPageState extends State<SavedMaterialsPage> {
-  // 3. The list now uses the new 'MaterialItem' model
+class SavedMaterialsScreenState extends State<SavedMaterialsScreen> { 
   final List<MaterialItem> _savedItems = [
     MaterialItem(
       title: 'All about widget',
-      subtitle: 'Flutter', // Mapped from 'subject'
+      subtitle: 'Flutter',  
       type: 'PDF',
-      displayDate: '2h ago', // Mapped from 'timeAgo'
+      displayDate: '2h ago',  
       uploadedBy: 'Ansh',
       uploaderIcon: Icons.person,
-      isBookmarked: true, // Set bookmark state
-      // --- UI Flags to control the card's appearance ---
+      isBookmarked: true, 
       canBookmark: true,
       canDownload: true,
       canOpen: true,
@@ -82,11 +78,11 @@ class SavedMaterialsPageState extends State<SavedMaterialsPage> {
         padding: const EdgeInsets.only(top: 10),
         itemCount: _savedItems.length,
         itemBuilder: (context, index) {
-          final item = _savedItems[index];
-          // 4. Use the single, reusable 'MaterialCard' widget
+          final item = _savedItems[index]; 
+          // materialcard widget no use kro
           return MaterialCard(
-            item: item,
-            // You can customize its appearance for this screen
+            item: item, 
+
             backgroundColor: const Color(0xFFF0F2FF),
             // ignore: deprecated_member_use
             borderColor: Colors.indigo.withOpacity(0.2),
