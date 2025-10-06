@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:study_mate/core/shared/screen/edit_profile.dart';
-import 'package:study_mate/core/shared/screen/my_uploads.dart';
-import 'package:study_mate/core/shared/screen/saved_material.dart';
+import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
+import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
+import 'package:study_mate/core/shared/screen/saved_material_screen.dart';
 import 'package:study_mate/core/shared/screen/upload_material.dart';
 
 void main() {
@@ -40,11 +40,11 @@ class Home extends StatelessWidget {
         ),
       ),
       // home: WidgetTree(),
-      home: EditProfilePage(),
-      // home: MyUploadsPage(),
+      // home: EditProfileScreen(),
+      // home: MyUploadsScreen(),
       // home: UploadMaterialPage(),
       // home: AddSubjectPage(),
-      // home: SavedMaterialsPage(),
+      home: SavedMaterialsPage(),
     );
   }
 }

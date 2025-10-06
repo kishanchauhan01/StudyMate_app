@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/material_card.dart';
 import 'package:study_mate/core/models/upload_item.dart';
 
-class MyUploadsPage extends StatefulWidget {
-  const MyUploadsPage({super.key});
+class MyUploadsScreen extends StatefulWidget {
+  const MyUploadsScreen({super.key});
 
   @override
-  _MyUploadsPageState createState() => _MyUploadsPageState();
+  _MyUploadsScreenState createState() => _MyUploadsScreenState();
 }
 
-class _MyUploadsPageState extends State<MyUploadsPage> {
-  // Sample data
+class _MyUploadsScreenState extends State<MyUploadsScreen> {
+  // Sample data threw model
   final List<UploadItem> _uploadItems = [
     UploadItem(
       title: 'All about widget',
