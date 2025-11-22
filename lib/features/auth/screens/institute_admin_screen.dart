@@ -7,6 +7,7 @@ import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
 import 'package:study_mate/features/auth/controller/otp_api_controller.dart';
+import 'package:study_mate/features/auth/controller/registration_data_controller.dart';
 import 'package:study_mate/features/auth/screens/otp_verify_screen.dart';
 
 class InstituteAdminScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
       TextEditingController();
 
   final regApi = Get.put(OtpApiController());
+  final reg = Get.find<RegistrationController>();
 
   String? adminNameError;
   String? adminEmailError;
@@ -125,14 +127,13 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
                   text: "Submit",
                   onPressed: () async {
                     if (validateForm()) {
+                      regController.setAdminData(
+                        name: adminNameController.text,
+                        email: adminEmailController.text,
+                        password: adminPasswordController.text,
+                      );
+                      _showDialog(context);
                       // ⬅ call API here
-                      bool ok = await regApi.sentOTP();
-
-                      if (ok) {
-                        Get.to(OtpVerifyScreen());
-                      } else {
-                        Get.snackbar("Error", "Something went wrong");
-                      }
                     }
                   },
                   isPrimary: true,
@@ -160,13 +161,14 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OtpVerifyScreen(),
-                      ),
-                    );
+                  onPressed: () async {
+                    final (success, message) = await regApi.sentOTP();
+
+                    if (success) {
+                      Get.to(OtpVerifyScreen());
+                    } else {
+                      Get.snackbar("Error", message);
+                    }
                   },
                   text: "Done",
                   isPrimary: true,

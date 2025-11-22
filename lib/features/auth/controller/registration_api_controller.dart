@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:study_mate/features/auth/controller/registration_data_controller.dart';

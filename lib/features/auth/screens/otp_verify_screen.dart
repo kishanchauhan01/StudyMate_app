@@ -78,6 +78,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                 text: "Verify and register institute",
                 onPressed: otpTxtCtrl.text.length == 4
                     ? () async {
+                      
                         final (success, message) = await regApi
                             .submitRegistration(otpTxtCtrl.text);
 

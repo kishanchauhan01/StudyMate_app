@@ -6,27 +6,36 @@ import 'package:study_mate/features/auth/controller/registration_data_controller
 class OtpApiController extends GetxController {
   final reg = Get.find<RegistrationController>();
 
-  Future<bool> sentOTP() async {
-    final adminEmail = reg.registrationData.value.adminEmail;
+  Future<(bool success, String message)> sentOTP() async {
+    final requestBody = {"adminEmail": reg.registrationData.value.adminEmail};
+
+    print("--------------------------------yes-----------------------------");
+    print(requestBody);
 
     try {
       final response = await http.post(
         Uri.parse("http://10.50.127.35:8080/api/v1/auth/sentOTP"),
         headers: {"Content-Type": "application/json"},
-        body: jsonEncode(adminEmail),
+        body: jsonEncode(requestBody),
       );
 
+      final data = jsonDecode(response.body);
+      print(data);
+      print("-----------------------------here");
+      print(response.statusCode);
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        reg.setOtpRefId(data["otpRefId"]);
-        
-        return true;
+        print("-----------------------------here111111111");
+        reg.setOtpRefId(data["data"]);
+        print(data["message"].toString());
+
+        return (true, data["message"].toString());
       } else {
-        return false;
+        return (false, data["message"].toString());
+        ;
       }
     } catch (e) {
       print("Error: $e");
-      return false;
+      return (false, "Error: $e");
     }
   }
 }
