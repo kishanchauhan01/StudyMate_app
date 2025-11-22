@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
+import 'package:study_mate/core/shared/screen/home_screen.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/controller/registration_api_controller.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({super.key});
@@ -14,7 +17,7 @@ class OtpVerifyScreen extends StatefulWidget {
 class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   TextEditingController otpTxtCtrl = TextEditingController();
 
-  late String currentText = "";
+  final regApi = Get.put(RegistrationApiController());
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +60,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                   appContext: context,
                   length: 4,
                   controller: otpTxtCtrl,
-                  onChanged: (value) {
-                    print(otpTxtCtrl.text);
-                  },
+                  onChanged: (value) {},
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(12),
@@ -76,8 +77,16 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
               AppButton(
                 text: "Verify and register institute",
                 onPressed: otpTxtCtrl.text.length == 4
-                    ? () {
-                        //Navigate to the home screen
+                    ? () async {
+                        final (success, message) = await regApi
+                            .submitRegistration(otpTxtCtrl.text);
+
+                        if (success) {
+                          Get.snackbar("Success", message);
+                          Get.to(HomeScreen());
+                        } else {
+                          Get.snackbar("Error", message);
+                        }
                       }
                     : null,
                 isPrimary: true,

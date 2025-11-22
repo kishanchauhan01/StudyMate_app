@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:study_mate/core/common_widgets/custom_bottom_nav_bar.dart';
 import 'package:study_mate/core/common_widgets/profile_header_card.dart';
 import 'package:study_mate/core/common_widgets/profile_menu_list_item.dart';
+import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
+import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
+import 'package:study_mate/core/shared/screen/saved_material_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -11,7 +13,10 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
-        title: const Text('Profile', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Profile',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.grey.shade100,
         elevation: 0,
         scrolledUnderElevation: 0,
@@ -33,19 +38,40 @@ class ProfileScreen extends StatelessWidget {
                   icon: Icons.person_outline,
                   title: 'My Account',
                   subtitle: 'View your profile',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfileScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuListItem(
                   icon: Icons.cloud_upload_outlined,
                   title: 'My Uploads',
                   subtitle: 'View your uploaded materials',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyUploadsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuListItem(
                   icon: Icons.bookmark_border,
                   title: 'Saved Materials',
                   subtitle: 'View all your saved materials',
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SavedMaterialsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 ProfileMenuListItem(
                   icon: Icons.logout,
@@ -61,7 +87,11 @@ class ProfileScreen extends StatelessWidget {
             // More Section
             const Text(
               'More',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey,
+              ),
             ),
             const SizedBox(height: 10),
             _buildMenuSection(
@@ -77,12 +107,14 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomNavBar(),
     );
   }
 
   // Helper method to build menu sections with a card background
-  Widget _buildMenuSection(BuildContext context, {required List<Widget> children}) {
+  Widget _buildMenuSection(
+    BuildContext context, {
+    required List<Widget> children,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -95,9 +127,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        children: children,
-      ),
+      child: Column(children: children),
     );
   }
 }

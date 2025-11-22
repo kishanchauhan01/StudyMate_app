@@ -80,7 +80,7 @@ class CustomDropdownFormField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black87),
           items: items.map((String item) {
             return DropdownMenuItem<String>(value: item, child: Text(item));

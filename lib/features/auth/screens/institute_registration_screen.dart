@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
+import 'package:study_mate/features/auth/controller/registration_data_controller.dart';
+import 'package:study_mate/features/auth/models/registration_model.dart';
 import 'package:study_mate/features/auth/screens/institute_admin_screen.dart';
 
 class InstituteRegistrationScreen extends StatefulWidget {
@@ -38,7 +40,7 @@ class _InstituteRegistrationScreenState
                 ),
 
                 CustomeTextField(
-                  lable: "Institute domain (if any)",
+                  lable: "Institute email (if any)",
                   hintText: "your institute email",
                   obsecureText: false,
                   controller: instituteDomainController,
@@ -80,10 +82,20 @@ class _InstituteRegistrationScreenState
                   width: 300,
                   text: "Next",
                   onPressed: () {
+                    regController.setInstituteData(
+                      name: instituteNameController.text,
+                      email: instituteDomainController.text,
+                      contact: instituteContactController.text,
+                      type: instituteTypeController.text,
+                      address: instituteAddressController.text,
+                    );
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => InstituteAdminScreen(),
+                        builder: (context) => InstituteAdminScreen(
+                          
+                        ),
                       ),
                     );
                   },

@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/controller/otp_api_controller.dart';
 import 'package:study_mate/features/auth/screens/otp_verify_screen.dart';
 
 class InstituteAdminScreen extends StatefulWidget {
@@ -18,6 +23,41 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
   TextEditingController adminPasswordController = TextEditingController();
   TextEditingController adminConfirmPassowrdController =
       TextEditingController();
+
+  final regApi = Get.put(OtpApiController());
+
+  String? adminNameError;
+  String? adminEmailError;
+  String? adminPasswordError;
+  String? adminConfirmPasswordError;
+
+  bool validateForm() {
+    setState(() {
+      adminNameError = adminNameController.text.isEmpty
+          ? "Name is required"
+          : null;
+      adminEmailError = adminEmailController.text.isEmpty
+          ? "Email is required"
+          : null;
+      adminPasswordError = adminPasswordController.text.isEmpty
+          ? "Password is required"
+          : null;
+
+      if (adminConfirmPassowrdController.text.isEmpty) {
+        adminConfirmPasswordError = "Confirm your password";
+      } else if (adminPasswordController.text !=
+          adminConfirmPassowrdController.text) {
+        adminConfirmPasswordError = "Password does not match";
+      } else {
+        adminConfirmPasswordError = null;
+      }
+    });
+
+    return adminNameError == null &&
+        adminEmailError == null &&
+        adminPasswordError == null &&
+        adminConfirmPasswordError == null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +76,11 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
                   obsecureText: false,
                   controller: adminNameController,
                 ),
+                if (adminNameError != null)
+                  Text(
+                    adminNameError!,
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
 
                 CustomeTextField(
                   lable: "Email",
@@ -43,26 +88,52 @@ class _InstituteRegistrationScreenState extends State<InstituteAdminScreen> {
                   obsecureText: false,
                   controller: adminEmailController,
                 ),
+                if (adminEmailError != null)
+                  Text(
+                    adminEmailError!,
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+
                 CustomeTextField(
                   lable: "Password",
                   hintText: "",
                   obsecureText: true,
                   controller: adminPasswordController,
                 ),
+                if (adminPasswordError != null)
+                  Text(
+                    adminPasswordError!,
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
+
                 CustomeTextField(
                   lable: "Confirm Password",
                   hintText: "",
                   obsecureText: true,
                   controller: adminConfirmPassowrdController,
                 ),
+                if (adminConfirmPasswordError != null)
+                  Text(
+                    adminConfirmPasswordError!,
+                    style: TextStyle(color: Colors.red, fontSize: 12),
+                  ),
 
                 SizedBox(height: 20),
 
                 AppButton(
                   width: 300,
                   text: "Submit",
-                  onPressed: () {
-                    _showDialog(context);
+                  onPressed: () async {
+                    if (validateForm()) {
+                      // ⬅ call API here
+                      bool ok = await regApi.sentOTP();
+
+                      if (ok) {
+                        Get.to(OtpVerifyScreen());
+                      } else {
+                        Get.snackbar("Error", "Something went wrong");
+                      }
+                    }
                   },
                   isPrimary: true,
                 ),

@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:study_mate/widget_tree.dart';
 import 'core/managers/profile_manager.dart';
 import 'core/managers/upload_manager.dart';
-
-import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
-import 'package:study_mate/core/shared/screen/my_uploads_screen.dart';
-import 'package:study_mate/core/shared/screen/saved_material_screen.dart';
-import 'package:study_mate/core/shared/screen/upload_material_screen.dart';
 
 void main() {
   // Ensure that Flutter bindings are initialized
@@ -32,7 +28,7 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (_) => ProfileManager()),
           ChangeNotifierProvider(create: (_) => UploadManager()),
-        ], 
+        ],
         child: const Home(),
       ),
     );
@@ -52,12 +48,8 @@ class Home extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
-      // home: WidgetTree(),
-      // home: EditProfileScreen(),
-      // home: MyUploadsScreen(),
-      home: UploadMaterialScreen(),
-      // home: AddSubjectPage(),
-      // home: SavedMaterialsScreen(),
+      home: WidgetTree(),
     );
   }
 }
+

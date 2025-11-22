@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/recent_item_card.dart';
 import 'package:study_mate/core/common_widgets/subject_grid_item.dart';
+import 'package:study_mate/core/shared/screen/upload_material_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-      
         child: ListView(
           padding: const EdgeInsets.all(20.0),
           children: [
@@ -35,27 +35,19 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 15),
             _buildSubjectsGrid(),
             const SizedBox(height: 20),
-            
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UploadMaterialScreen()),
+          );
+        },
         backgroundColor: const Color(0xFF6A6AE3),
         shape: const CircleBorder(),
         child: const Icon(Icons.add, color: Colors.white),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
       ),
     );
   }
@@ -243,8 +235,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        
-       
       ],
     );
   }

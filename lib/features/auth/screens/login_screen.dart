@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
+import 'package:study_mate/core/shared/screen/navigations.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
 import 'package:study_mate/features/auth/screens/signup_screen.dart';
 
@@ -96,7 +97,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     AppButton(
                       text: "Login",
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Navigations(),
+                          ),
+                        );
+                      },
                       isPrimary: true,
                       width: MediaQuery.of(context).size.width * 0.90,
                     ),
