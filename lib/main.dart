@@ -48,8 +48,8 @@ class Home extends StatelessWidget {
           brightness: Brightness.light,
         ),
       ),
+
       home: WidgetTree(),
     );
   }
 }
-

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-class MaterialItem {
-  // --- Core Data Fields ---
+class MaterialItem { 
   final String title;
   final String subtitle;
   final String type;
-  final String displayDate; // A generic field for 'uploadDate' or 'timeAgo'
-
-  // --- Optional Fields (for Saved Materials) ---
+  final String displayDate;  
+ 
   final String? uploadedBy;
   final IconData? uploaderIcon;
-
-  // --- UI Control Flags ---
+ 
   final bool canDelete;
   final bool canBookmark;
   final bool isBookmarked;
@@ -26,11 +23,11 @@ class MaterialItem {
     required this.displayDate,
     this.uploadedBy,
     this.uploaderIcon,
-    this.canDelete = false, // Default to false
-    this.canBookmark = false, // Default to false
-    this.isBookmarked = false, // Default to false
-    this.canDownload = false, // Default to false
-    this.canOpen = false, // Default to false
-    this.showUploaderInfo = false, // Default to false
+    this.canDelete = false, 
+    this.canBookmark = false, // Default
+    this.isBookmarked = false, // Default 
+    this.canDownload = false, // Defaul
+    this.canOpen = false, // Default 
+    this.showUploaderInfo = false, // Default
   });
 }
