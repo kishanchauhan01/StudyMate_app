@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
-import 'package:study_mate/core/shared/screen/navigations.dart';
+import 'package:study_mate/core/shared/screen/home_screen.dart';
 import 'package:study_mate/core/theme/app_colors.dart';
+import 'package:study_mate/features/auth/controller/auth_data_controller.dart';
+import 'package:study_mate/features/auth/models/institute_model.dart';
+import 'package:study_mate/features/auth/models/user_model.dart';
 import 'package:study_mate/features/auth/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -97,13 +104,75 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     AppButton(
                       text: "Login",
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Navigations(),
-                          ),
+                      onPressed: () async {
+                        final data = {
+                          "email": emailController.text,
+                          "password": passwordController.text,
+                        };
+
+                        Get.dialog(
+                          Center(child: CircularProgressIndicator()),
+                          barrierDismissible: false,
                         );
+
+                        try {
+                          final response = await http.post(
+                            Uri.parse(
+                              "http://10.12.203.35:8080/api/v1/auth/userLogin",
+                            ),
+                            headers: {"Content-Type": "application/json"},
+                            body: jsonEncode(data),
+                          );
+
+                          final resData = jsonDecode(response.body);
+
+                          print(
+                            "------------------ FULL RESPONSE ------------------",
+                          );
+                          print(resData);
+
+                          // Close loader
+                          Get.back();
+
+                          if (response.statusCode == 200) {
+                            final userJson = resData["data"]["user"];
+                            final instituteJson = resData["data"]["institute"];
+
+                            print(
+                              "------------------ USER JSON ------------------",
+                            );
+                            print(userJson); // ✔ Now correct
+
+                            print(
+                              "------------------ INSTITUTE JSON ------------------",
+                            );
+                            print(instituteJson);
+
+                            final userModel = UserModel.fromJson(userJson);
+                            final instituteModel = InstituteModel.fromJson(
+                              instituteJson,
+                            );
+
+                            final auth = Get.find<AuthDataController>();
+                            auth.saveUser(userModel, instituteModel);
+
+                            Get.offAll(() => HomeScreen());
+
+                            Future.delayed(Duration(milliseconds: 300), () {
+                              Get.snackbar("Success", resData["message"]);
+                            });
+                          } else {
+                            Get.back();
+                            Get.snackbar(
+                              "Error",
+                              resData["message"] ?? "Something went wrong",
+                            );
+                          }
+                        } catch (e) {
+                          Get.back();
+                          print(e);
+                          Get.snackbar("Error", "Something went wrong");
+                        }
                       },
                       isPrimary: true,
                       width: MediaQuery.of(context).size.width * 0.90,

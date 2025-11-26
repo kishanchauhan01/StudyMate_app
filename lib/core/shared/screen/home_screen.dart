@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:study_mate/core/common_widgets/recent_item_card.dart';
 import 'package:study_mate/core/common_widgets/subject_grid_item.dart';
+import 'package:study_mate/core/shared/screen/profile_screen.dart';
+import 'package:study_mate/core/shared/screen/search_screen.dart';
 import 'package:study_mate/core/shared/screen/upload_material_screen.dart';
+import 'package:study_mate/features/auth/models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +17,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedFilterIndex = 0;
   final List<String> _filters = ['All', 'Notes', 'Projects', 'Roadmaps'];
+
+
+  UserModel? user; // will store user data
+
+  @override
+  void initState() {
+    super.initState();
+
+    final box = GetStorage();
+    final raw = box.read("user");
+
+    if (raw != null) {
+      setState(() {
+        user = UserModel.fromJson(Map<String, dynamic>.from(raw));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
   // --- All the helper methods remain the same ---
 
   Widget _buildGreeting() {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Good morning,',
           style: TextStyle(fontSize: 18, color: Colors.grey),
         ),
         Text(
-          'Ansh Dholakiya 👋',
-          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          '${user?.userName ?? "User"} 👋',
+          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
         ),
       ],
     );

@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:study_mate/core/common_widgets/app_button.dart';
 import 'package:study_mate/core/common_widgets/custome_text_field.dart';
 import 'package:study_mate/core/theme/app_colors.dart';

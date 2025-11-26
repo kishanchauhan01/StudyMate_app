@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:study_mate/core/managers/profile_manager.dart';
+import 'package:study_mate/features/auth/controller/auth_data_controller.dart';
 import 'package:study_mate/widget_tree.dart';
-import 'core/managers/profile_manager.dart';
-import 'core/managers/upload_manager.dart';
 
 void main() {
   // Ensure that Flutter bindings are initialized
@@ -22,17 +22,12 @@ void main() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(
-      // Use MultiProvider to provide all your managers to the app
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ProfileManager()),
-          ChangeNotifierProvider(create: (_) => UploadManager()),
-        ],
-        child: const Home(),
-      ),
-    );
+  ]).then((_) async {
+    await GetStorage.init();
+    Get.put(ProfileManager());
+    Get.put(AuthDataController()); // Global instance
+
+    runApp(Home());
   });
 }
 

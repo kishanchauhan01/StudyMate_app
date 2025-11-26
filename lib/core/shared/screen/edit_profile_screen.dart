@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../managers/profile_manager.dart';
 import '../../common_widgets/custom_form_fields.dart'; // Import the new common widgets
@@ -8,8 +9,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final manager = context.watch<ProfileManager>();
-    final managerReader = context.read<ProfileManager>();
+    final manager = Get.find<ProfileManager>();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),
@@ -24,7 +24,9 @@ class EditProfileScreen extends StatelessWidget {
             const Center(
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=18'),
+                backgroundImage: NetworkImage(
+                  'https://i.pravatar.cc/150?img=18',
+                ),
               ),
             ),
             const SizedBox(height: 32),
@@ -44,31 +46,37 @@ class EditProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: CustomDropdownFormField(
-                    label: 'Sem',
-                    value: manager.selectedSemester,
-                    items: manager.semesters,
-                    onChanged: managerReader.updateSemester,
+                  child: Obx(
+                    () => CustomDropdownFormField(
+                      label: 'Sem',
+                      value: manager.selectedSemester.value,
+                      items: manager.semesters,
+                      onChanged: manager.updateSemester,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  child: CustomDropdownFormField(
-                    label: 'Branch',
-                    value: manager.selectedBranch,
-                    items: manager.branches,
-                    onChanged: managerReader.updateBranch,
+                  child: Obx(
+                    () => CustomDropdownFormField(
+                      label: 'Branch',
+                      value: manager.selectedBranch.value,
+                      items: manager.branches,
+                      onChanged: manager.updateBranch,
+                    ),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 24),
 
-            CustomDropdownFormField(
-              label: 'Department',
-              value: manager.selectedDepartment,
-              items: manager.departments,
-              onChanged: managerReader.updateDepartment,
+            Obx(
+              () => CustomDropdownFormField(
+                label: 'Department',
+                value: manager.selectedDepartment.value,
+                items: manager.departments,
+                onChanged: manager.updateDepartment,
+              ),
             ),
             const SizedBox(height: 40),
 
@@ -76,16 +84,23 @@ class EditProfileScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // managerReader.updateProfile(); 
+                  // managerReader.updateProfile();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Profile Updated Successfully!')),
+                    const SnackBar(
+                      content: Text('Profile Updated Successfully!'),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF836FFF),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                child: const Text('Update Profile', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Update Profile',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],

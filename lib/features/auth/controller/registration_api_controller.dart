@@ -17,7 +17,7 @@ class RegistrationApiController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse("http://10.50.127.35:8080/api/v1/auth/instituteRegister"),
+        Uri.parse("http://10.12.203.35:8080/api/v1/auth/instituteRegister"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(requestBody),
       );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:study_mate/core/shared/screen/edit_profile_screen.dart';
 
 class ProfileHeaderCard extends StatelessWidget {
   const ProfileHeaderCard({super.key});
@@ -56,7 +58,9 @@ class ProfileHeaderCard extends StatelessWidget {
           const Spacer(),
           // Edit Icon
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => EditProfileScreen());
+            },
             icon: const Icon(Icons.edit, color: Colors.white),
             style: IconButton.styleFrom(
               backgroundColor: Colors.white.withOpacity(0.2),
